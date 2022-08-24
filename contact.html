@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="robots" content="noindex, nofollow">
+   <title>Google Sheet Submit</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <style>
+      body {
+         font-family: Arial, Helvetica, sans-serif;
+         border-top: 5px solid#344a8a;
+         margin: 0px;
+      }
+
+      /* * {
+         box-sizing: border-box;
+      } */
+
+      input[type=text],
+      select,
+      textarea {
+         width: 100%;
+         padding: 12px;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         box-sizing: border-box;
+         margin-top: 6px;
+         margin-bottom: 16px;
+         resize: vertical;
+      }
+
+      #btnSubmit {
+         background-color: #04AA6D;
+         color: white;
+         padding: 12px 20px;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+      }
+
+      #btnSubmit:hover {
+         background-color: #45a049;
+      }
+
+      .container {
+         border-radius: 20px;
+         background-color: #f2f2f2;
+         padding: 20px;
+         text-align: center;
+         margin: 0px 10px 0px 10px;
+      }
+
+      label {
+         float: left;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+      <p>
+         <center>
+            <h2><b>Contact Me</b></h2>
+         </center>
+      </p>
+      <form method="post" id="frmSubmit">
+
+         <label for="name">Name</label>
+         <input type="text" id="name" name="name" placeholder="Your name.." required>
+
+         <label for="email">Email</label>
+         <input type="text" id="email" name="email" placeholder="Your Email Id.." required>
+
+         <label for="mob">Contact Number</label>
+         <input type="text" id="mob" name="mob" placeholder="Your Mobile No..">
+
+         <label for="subject">Subject</label>
+         <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+
+         <button type="submit" id="btnSubmit">Submit</button>
+         <div id="msg" style="margin-top: 10px;text-align: center;"></div>
+      </form>
+   </div>
+   <script>
+      jQuery('#frmSubmit').on('submit', function (e) {
+         e.preventDefault();
+         jQuery('#msg').html('Please wait...');
+         jQuery('#btnSubmit').attr('disabled', true);
+         jQuery.ajax({
+            url: 'https://script.google.com/macros/s/AKfycbx6OmlQkAajRI21iX1rdCsP1LNamYVA_qcQ26gw0xi-xuxhD_zzcDC8CwNtUQzKAuw7Gg/exec',
+            type: 'post',
+            data: jQuery('#frmSubmit').serialize(),
+            success: function (result) {
+               jQuery('#frmSubmit')[0].reset();
+               jQuery('#msg').html('Thank You');
+               jQuery('#btnSubmit').attr('disabled', false);
+               //window.location.href='';
+            }
+         });
+      });
+   </script>
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
